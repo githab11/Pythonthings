@@ -1,0 +1,20 @@
+import random
+import time
+
+num_quotes = int(input("How many quotes do you want: "))
+
+Start1 = ["Your day will be ", "Today is ", "Something will happen today, maybe it'll be ", "Today you will be "]
+Start2 = ["Greedy", "Lustful", "Good", "Good", "Sinful", "idk", "death"]
+Start3 = ["?", "!", "...", "?!", " :)"]
+
+# Loading the quote
+print("Your quotes today are.....")
+time.sleep(1.1)
+
+# Generate and print the quotes
+for i in range(num_quotes):
+    randomitem1 = random.choice(Start1)
+    randomitem2 = random.choice(Start2)
+    randomquote = random.choice(Start3)
+    result = randomitem1 + randomitem2 + randomquote
+    print(result)
