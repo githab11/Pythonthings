@@ -1,0 +1,17 @@
+import random
+
+number = random.randint(1, 100)
+
+while True:
+    try:
+        user_input = int(input("Guess a number: "))
+
+        if user_input == number:
+            print("You win!")
+            break
+        elif user_input < number:
+            print("The number is higher. Try again.")
+        else:
+            print("The number is lower. Try again.")
+    except ValueError:
+        print("Please enter a valid number.")
