@@ -1,0 +1,20 @@
+import random
+
+
+print("Welcome to the dice roll game")
+input2 = int(input("What sided dice would you like to roll: "))
+input1 = input("Would you like to roll the dice (y/n): ")
+
+#Run the game to check the die roll
+
+if input == ('y'):
+    RollYou = int(random.randint(1, input2))
+    RollEnemy = random.randint(1, input2)
+    print(RollYou)
+    print(RollEnemy)
+if RollYou > RollEnemy:
+    print("You win zawg")
+if RollYou < RollEnemy:
+    print("You lose zawg")
+if RollYou == RollEnemy:
+    print("tie! yippe")
