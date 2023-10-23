@@ -1,0 +1,52 @@
+import pygame
+
+pygame.init()
+
+font = pygame.font.Font(None, 36)
+text = font.render("Press spacebar to modify this old man right here", True, (255, 255, 255))
+
+# Set up the game window
+screen = pygame.display.set_mode((800, 600))
+pygame.display.set_caption("Pygame Image Modification")
+
+# Load the character image
+character_image = pygame.image.load("old man.png")
+
+# Initial character position
+character_x = 10
+character_y = 10
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Movement and image modification input
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_SPACE]:
+        # Resize the character image (make it larger)
+        character_image = pygame.transform.scale(character_image, (character_image.get_width() - 10, character_image.get_height() -  10))
+    if keys[pygame.K_ESCAPE]:
+        pygame.quit()
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+        character_x -= 1
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+        character_x += 1
+    if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        character_y += 1
+    if keys[pygame.K_UP] or keys[pygame.K_w]:
+        character_y -= 1
+
+    # Clear the screen
+    screen.fill((0, 0, 0))  # Fill with a black background
+
+    # Your drawings and graphics go here
+    screen.blit(character_image, (character_x, character_y))
+
+    # Render text on the screen
+    screen.blit(text, (100, 100))
+
+    pygame.display.update()
+
+pygame.quit()
