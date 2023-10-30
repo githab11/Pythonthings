@@ -1,0 +1,19 @@
+import random
+import math
+
+number1 = random.randint(1, 100)
+number2 = random.randint(1, 100)
+
+input1 = input("Would you like to do a subtraction addition multiplication or division")
+if input1 == 'division':
+    math = input(number1, "/", number2)
+if input1 == 'addition':
+    math1 = input(number1, "+", number2)
+if input1 == 'multiplication':
+    math1 = input(number1, "x", number2)
+if input1 == 'subtraction':
+    math1 = input(number1, "-", number2)
+
+
+
+
