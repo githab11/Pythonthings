@@ -1,0 +1,132 @@
+import random
+import math
+
+# Player stats
+player_name = "Player"
+player_level = 1
+player_xp = 0
+player_next_level_xp = 100
+player_health = 75
+player_maxhealth = 75
+min_sword_dmg = 7
+max_sword_dmg = 13
+additive_dmg = 0
+coins = 0
+alive = True
+
+# Enemy Starting stats
+enemy_name = "Goblin"
+enemy_coins = random.randint(3, 6)
+enemy_health = 40
+enemy_attack_min = 5
+enemy_attack_max = 10
+
+# Function to reroll sword damage
+def reroll_dmg():
+    global min_sword_dmg, max_sword_dmg
+    min_sword_dmg = random.randint(5, 10)
+    max_sword_dmg = random.randint(min_sword_dmg, 15)
+
+# Function to set goblin stats
+def set_goblin():
+    global enemy_name, enemy_coins, enemy_health, enemy_attack_min, enemy_attack_max
+    enemy_name = "Goblin"
+    enemy_coins = random.randint(3, 6)
+    enemy_health = 40
+    enemy_attack_min = 5
+    enemy_attack_max = 10
+
+def set_skeleton():
+    global enemy_name, enemy_coins, enemy_health, enemy_attack_min, enemy_attack_max
+    enemy_name = "Skeleton"
+    enemy_coins = random.randint(6, 12)
+    enemy_health = 50
+    enemy_attack_min = 5
+    enemy_attack_max = 13
+
+# Function to gain XP
+def gain_xp(amount):
+    global player_xp, player_level, player_next_level_xp, min_sword_dmg, player_health, player_maxhealth
+    player_xp += amount
+    print("You have gained:", amount, "XP!")
+    print(player_xp, "/", player_next_level_xp)
+
+    while player_xp >= player_next_level_xp:
+        player_level += 1
+        player_xp -= player_next_level_xp
+        player_next_level_xp = math.floor(player_next_level_xp * 1.2)
+        print(player_name, "has leveled up to level", player_level)
+        levelupinput = input("Upgrade sword damage (2) or health (10)? : ")
+        if levelupinput[0].lower() == 's':
+            min_sword_dmg += 2
+            max_sword_dmg += 2
+            print("You have:", min_sword_dmg, "-", max_sword_dmg, "Damage!")
+        elif levelupinput[0].lower() == 'h':
+            player_health += 10
+            player_maxhealth = player_health
+            print("You have:", player_health, "Health!")
+
+def print_values():
+    print(player_name, "Level:", player_level, "XP:", player_xp, "/", player_next_level_xp, "Coins:", coins, "Damage:", min_sword_dmg, "Between", max_sword_dmg)
+
+def fight():
+    global player_name, player_level, player_health, enemy_health, enemy_attack_max, enemy_attack_min, enemy_name, alive, coins
+    print("You have encountered a", enemy_name, "!")
+    print("The", enemy_name, "has", enemy_health, "health and deals", enemy_attack_min, "<->", enemy_attack_max, "damage!")
+    while player_health > 0 and enemy_health > 0:
+
+        enemy_attack = input("Would you like to attack the " + enemy_name + "?: ")
+        actualdmg = 0
+        if enemy_attack[0].lower() == 'y':
+            # Combat logic here
+            actualdmg = random.randint(enemy_attack_min, enemy_attack_max)
+            print("The", enemy_name, "has attacked you for:", actualdmg)
+            plractualdmg = random.randint(min_sword_dmg, max_sword_dmg)
+            print("You've attacked", enemy_name, "for:", plractualdmg)
+
+            # Update enemy's health
+            enemy_health -= plractualdmg
+            player_health -= actualdmg
+            print("The", enemy_name, "has", enemy_health, "health left!")
+            print("You have", player_health, "health left!")
+
+            if enemy_health <= 0:
+                print("The", enemy_name, "has been defeated!")
+                coins = enemy_coins + coins
+                print("The", enemy_name, "has dropped", enemy_coins, "coins, you now have", coins, "coins!")
+
+                gain_xp(10)  # You can adjust the XP gain as needed
+        elif enemy_attack[0].lower() == 'n':
+            runningchance = random.randint(1, 10)
+            if runningchance == 9:
+                actualdmg = random.randint(enemy_attack_min, enemy_attack_max)
+                print("You have Failed to run away!")
+                print("The", enemy_name, "has attacked you for:", actualdmg)
+            elif runningchance != 9:
+                print("You have ran away from the enemy!")
+                runningchance = random.randint(1, 10)
+                pass
+
+        if actualdmg > 0:
+            # Update player's health only if an attack occurred
+            player_health -= actualdmg
+
+        print("The", enemy_name, "has", enemy_health, "health left!")
+        print("You have", player_health, "health left!")
+
+def levelup():
+    if player_level == 3:
+        levelup_input = input("Would you like to level up? ")
+        if levelup_input[0].lower() == 'y':
+            print("Leveling up!")
+            set_skeleton()
+        elif levelup_input[0].lower() == 'n':
+            set_goblin()
+
+while True:
+    fight()
+    levelup()
+
+# Player has died, end the game
+if player_health <= 0:
+    print(player_name, "has been defeated. Game over.")
