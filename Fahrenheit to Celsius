@@ -1,0 +1,20 @@
+from fractions import Fraction
+
+user_input = input("Would you like to convert Fahrenheit to Celsius or Celsius to Fahrenheit?: ")
+
+fraction1 = Fraction(5, 9)  # Represents the conversion factor
+
+if user_input[0].lower() == 'f':
+    amount_fahrenheit = float(input("How many degrees Fahrenheit would you like to convert?: "))
+    if amount_fahrenheit == 0:
+        result = -17.777778
+    else:
+        result = fraction1 * (amount_fahrenheit - 32)
+    
+    print(f"{amount_fahrenheit} degrees Fahrenheit is approximately {result} degrees Celsius.")
+elif user_input[0].lower() == 'c':
+    amount_celsius = float(input("How many degrees Celsius would you like to convert?: "))
+    result = (amount_celsius * 9/5) + 32
+    print(f"{amount_celsius} degrees Celsius is approximately {result} degrees Fahrenheit.")
+else:
+    print("Invalid input. Please enter 'F' or 'C' for the conversion.")
