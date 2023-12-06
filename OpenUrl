@@ -1,28 +1,44 @@
 import requests
 import webbrowser
-
-
-
-
+import time
+import pyautogui
 
 # Specify the URL
-
-
-
-url = "https://students.hwdsb.on.ca"
+mainurl = "reddit"
+url = "https://www." + mainurl + ".com/"
+subtext = 'Reddit - Dive into anything'
 
 # Send a GET request to the URL
 response = requests.get(url)
 
+window_title_to_focus = mainurl
+
+
+def focus_window(window_title):
+    try:
+        window_id = pyautogui.getWindowsWithTitle(window_title)[0].id
+        pyautogui.window(window_id)
+        print(f"Focused on the window with title: {window_title}")
+    except IndexError:
+        print(f"Window with title '{window_title}' not found.")
 
 
 # Check if the request was successful (status code 200)
 if response.status_code == 200:
     # Print the content of the web page
-    print('Webpage loaded sucessfully.')
+    print('Webpage loaded successfully.')
     print(f'Opening {url}!')
+
     webbrowser.open(url)
 
+    # Adding a delay to allow the webpage to fully load
+    time.sleep(5)
 
+    if subtext == 'https://www.reddit.com/':
+        focus_window(window_title_to_focus)
+
+        pyautogui.getWindowsWithTitle(window_title_to_focus)[0].activate()
+
+        pyautogui.hotkey('ctrl', 'w')
 else:
     print('Failed to retrieve the web page. Status code:', response.status_code)
