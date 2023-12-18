@@ -1,0 +1,12 @@
+def is_palindrome(input_string):
+    return input_string == input_string[::-1]
+
+
+# Return True if palendrone.
+
+# Reture False if not.
+
+
+ab_string = is_palindrome("racecar")
+print(ab_string)  # False
+ab_string = is_palendrome("the")
