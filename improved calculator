@@ -1,0 +1,62 @@
+from colorama import init, Fore, Back, Style
+import time
+
+init(autoreset=True)
+
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    if y != 0:
+        return x / y
+    else:
+        return "Error! Division by zero."
+
+def print_all_functions():
+    print(Fore.MAGENTA + "Welcome to my calculator")
+    time.sleep(1)
+    print("Here are all of the operations:")
+    time.sleep(0.5)
+    print("1. Addition (a)")
+    time.sleep(0.5)
+    print("2. Subtraction (s)")
+    time.sleep(0.5)
+    print("3. Multiplication (m)")
+    time.sleep(0.5)
+    print("4. Division (d)")
+
+    while True:
+        Answer = input("What function would you like to use? (Enter 'a', 's', 'm', or 'd'): ").lower()
+        if Answer in ['a', 's', 'm', 'd']:
+            break
+        else:
+            print("Invalid input. Please enter 'a', 's', 'm', or 'd'.")
+
+    prompts = {
+        'a': "What's the first number that you'd like to Add? ",
+        's': "What's the first number that you'd like to Subtract? ",
+        'm': "What's the first number that you'd like to Multiply? ",
+        'd': "What's the first number that you'd like to Divide? "
+    }
+
+    num1 = float(input(prompts[Answer]))
+    num2 = float(input("What is the second number you'd like to use? "))
+
+    if Answer == 'a':
+        result = add(num1, num2)
+    elif Answer == 's':
+        result = subtract(num1, num2)
+    elif Answer == 'm':
+        result = multiply(num1, num2)
+    elif Answer == 'd':
+        result = divide(num1, num2)
+
+    print(Fore.GREEN + f"The result is: {result}")
+
+print_all_functions()
