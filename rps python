@@ -1,0 +1,34 @@
+import random
+
+def RockPaperScissors():
+    possible_choices = ["Rock", "Paper", "Scissors"]
+
+    enemys_choice = random.choice(possible_choices)
+    
+    players_choice = input(
+        f"Would you like to play {possible_choices[0]}, {possible_choices[1]}, or {possible_choices[2]}?: ").capitalize()
+
+    if players_choice.startswith('R'):
+        players_choice = "Rock"
+    elif players_choice.startswith('P'):
+        players_choice = "Paper"
+    elif players_choice.startswith('S'):
+        players_choice = "Scissors"
+    else:
+        print("Invalid input")
+        exit()
+
+    if players_choice == enemys_choice:
+        print("It's a tie!")
+        print(f"Everyone picked {players_choice}!")
+    elif (players_choice == "Rock" and enemys_choice == "Scissors") or \
+            (players_choice == "Paper" and enemys_choice == "Rock") or \
+            (players_choice == "Scissors" and enemys_choice == "Paper"):
+        print("You win!")
+        print(f"{players_choice} Beats {enemys_choice}!")
+    else:
+        print("You lose!")
+        print(f"{enemys_choice} Beats {players_choice}.")
+
+while True:
+    RockPaperScissors()
