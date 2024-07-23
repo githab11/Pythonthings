@@ -3,6 +3,11 @@ import time
 
 init(autoreset=True)
 
+###  ___      _         _      _      ###
+### / __|__ _| |__ _  _| |__ _| |_ ___ _ _ ###
+## | (__/ _` | / _| || | / _` |  _/ _ \ '_| ###
+### \___\__,_|_\__|\_,_|_\__,_|\__\___/_| ###
+
 def add(x, y):
     return x + y
 
@@ -18,7 +23,7 @@ def divide(x, y):
     else:
         return "Error! Division by zero."
 
-def print_all_functions():
+def calculator():
     print(Fore.MAGENTA + "Welcome to my calculator")
     time.sleep(1)
     print("Here are all of the operations:")
@@ -44,19 +49,26 @@ def print_all_functions():
         'm': "What's the first number that you'd like to Multiply? ",
         'd': "What's the first number that you'd like to Divide? "
     }
+    prompts2 = {
+        'a': "What's the Second number that you'd like to Add? ",
+        's': "What's the Second number that you'd like to Subtract? ",
+        'm': "What's the Second number that you'd like to Multiply? ",
+        'd': "What's the Second number that you'd like to Divide? "
+    }
 
-    num1 = float(input(prompts[Answer]))
-    num2 = float(input("What is the second number you'd like to use? "))
+    num1 = int(input(prompts[Answer]))
+    num2 = int(input(prompts2[Answer]))
 
     if Answer == 'a':
-        result = add(num1, num2)
+        result = str(add(num1, num2))
     elif Answer == 's':
-        result = subtract(num1, num2)
+        result = str(subtract(num1, num2))
     elif Answer == 'm':
-        result = multiply(num1, num2)
+        result = str(multiply(num1, num2))
     elif Answer == 'd':
-        result = divide(num1, num2)
+        result = str(divide(num1, num2))
 
     print(Fore.GREEN + f"The result is: {result}")
 
-print_all_functions()
+while True:
+    calculator()
